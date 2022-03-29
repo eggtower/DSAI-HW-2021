@@ -21,7 +21,7 @@ def loadData(trainingDataFName_1, trainingDataFName_2):
     df_data1['日期'] = pd.to_datetime(df_data1['日期'], format='%Y-%m-%d');
     df_data1['備轉容量(MW)'] = df_data1['備轉容量(萬瓩)'].apply(lambda x: 10*int(x));
     df_data1 = df_data1.drop(['備轉容量(萬瓩)','備轉容量率(%)'], axis=1);
-    df_data1 = df_data1[-27:];
+    df_data1 = df_data1[-28:];
     
     df_training = pd.concat([df_data,df_data1[-27:]]);
     return df_training;
