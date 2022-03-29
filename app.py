@@ -1,11 +1,11 @@
 # import libraries
-import argparse
-import numpy as np
-import pandas as pd
-import prophet
-import csv, argparse
-from datetime import datetime
-import matplotlib.pyplot as plt
+import argparse;
+import numpy as np;
+import pandas as pd;
+import prophet;
+import csv, argparse;
+from datetime import datetime;
+import matplotlib.pyplot as plt;
 
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_absolute_error
@@ -118,6 +118,6 @@ if __name__ == '__main__':
     outputCSV(args.output, forecast);
     
     # draw
-    plt.plot(forecast['ds'], forecast['yhat'], color='red', label='predicted_value')
+    plt.plot(forecast['ds'], forecast['yhat'], color='red', label='predicted_value');
     plt.legend();
     plt.show();
