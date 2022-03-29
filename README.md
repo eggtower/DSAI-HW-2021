@@ -7,7 +7,7 @@ pip install -r requirements.txt
 ```
 運行主程式
 ```
-python app.py --training training_data.csv --output submission.csv
+python app.py --training training_data.csv --training1 training_data1.csv --holiday2021 2021holiday.csv --holiday2022 2022holiday.csv --output submission.csv
 ```
 
 ## 資料說明
