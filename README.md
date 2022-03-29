@@ -3,7 +3,7 @@
 ## 使用說明
 安裝相依套件
 ```
-pip install -r requirements.txt
+conda create --name <env_name> --file requirements.txt
 ```
 運行主程式
 ```
