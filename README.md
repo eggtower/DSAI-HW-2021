@@ -5,6 +5,10 @@
 ```
 conda create --name <env_name> --file requirements.txt
 ```
+啟動虛擬環境
+```
+conda activate <env_name>
+```
 運行主程式
 ```
 python app.py --training training_data.csv --training1 training_data1.csv --holiday2021 2021holiday.csv --holiday2022 2022holiday.csv --output submission.csv
