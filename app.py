@@ -67,6 +67,32 @@ def definePredictData():
     predict_date['ds']= pd.to_datetime(predict_date['ds'])
     return predict_date;
 
+def main(args):
+    # load data
+    df_training = loadData(args.training, args.training1);
+    
+    # preprocessing
+    min_max_scaler = MinMaxScaler();
+    df_training['備轉容量(MW)'] = pd.DataFrame(min_max_scaler.fit_transform(pd.DataFrame(df_training['備轉容量(MW)'])));
+    
+    # make holiday data
+    holidays = makeHolidayData(args.holiday2021, args.holiday2022);
+    
+    # build model
+    model = buildModel(df_training, holidays);
+    
+    # define predict data
+    predict_date = definePredictData();
+    
+    # predict
+    forecast = model.predict(predict_date);
+    
+    # inverse normolization
+    forecast['yhat'] = pd.DataFrame(min_max_scaler.inverse_transform(pd.DataFrame(forecast['yhat'])));
+    forecast = forecast.drop(forecast.columns[1:30], axis=1);
+    
+    return forecast;
+
 def outputCSV(outputFName, forecast):
     f = open(outputFName,'w',newline='');
     w = csv.writer(f);
@@ -86,28 +112,7 @@ if __name__ == '__main__':
     args = parser.parse_args();
     #
     
-    # load data
-    df_training = loadData(args.training, args.training1);
-    
-    # preprocessing
-    min_max_scaler = MinMaxScaler();
-    df_training['備轉容量(MW)'] = pd.DataFrame(min_max_scaler.fit_transform(pd.DataFrame(df_training['備轉容量(MW)'])));
-    
-    # make holiday data
-    holidays = makeHolidayData(args.holiday2021, args.holiday2022);
-    
-    # build model
-    model = buildModel(df_training, holidays);
-    
-    # define predict data
-    predict_date = definePredictData();
-    
-    # forecasting
-    forecast = model.predict(predict_date);
-    
-    # inverse normolization
-    forecast['yhat'] = pd.DataFrame(min_max_scaler.inverse_transform(pd.DataFrame(forecast['yhat'])));
-    forecast = forecast.drop(forecast.columns[1:30], axis=1);
+    forecast = main(args);
     
     # output submission.csv
     outputCSV(args.output, forecast);
